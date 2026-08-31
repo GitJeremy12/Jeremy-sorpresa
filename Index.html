@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Para ti ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #fbf6f3;
+      color: #4a3838;
+      font-family: Georgia, serif;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    /* PORTADA */
+
+    .inicio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at center, #fff 0%, #f9ebe7 55%, #f3ded9 100%);
+    }
+
+    .inicio small {
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #9b7771;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .inicio h1 {
+      font-size: clamp(50px, 12vw, 90px);
+      font-weight: normal;
+      margin: 20px 0;
+    }
+
+    .inicio p {
+      max-width: 500px;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .boton {
+      margin-top: 35px;
+      padding: 13px 25px;
+      border: 1px solid #b99690;
+      border-radius: 30px;
+      color: #6f5350;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    /* FOTOS */
+
+    .recuerdos {
+      text-align: center;
+      background: #fffaf8;
+    }
+
+    .recuerdos h2,
+    .carta h2 {
+      font-size: 42px;
+      font-weight: normal;
+      margin-bottom: 45px;
+    }
+
+    .galeria {
+      max-width: 950px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .foto {
+      aspect-ratio: 1 / 1.15;
+      border-radius: 15px;
+      overflow: hidden;
+      background: #eadbd7;
+    }
+
+    .foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* SOBRE */
+
+    .sorpresa {
+      min-height: 100vh;
+      text-align: center;
+      background: #fbf6f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sorpresa h2 {
+      font-size: 40px;
+      font-weight: normal;
+    }
+
+    .sorpresa p {
+      color: #806966;
+    }
+
+    .sobre {
+      width: 280px;
+      height: 190px;
+      margin: 40px auto;
+      position: relative;
+      cursor: pointer;
+      transition: transform .4s ease;
+      filter: drop-shadow(0 15px 20px rgba(70,40,40,.15));
+    }
+
+    .sobre:hover {
+      transform: translateY(-5px);
+    }
+
+    .base {
+      position: absolute;
+      inset: 0;
+      background: #d7aaa3;
+      border-radius: 5px;
+    }
+
+    .carta-dentro {
+      position: absolute;
+      width: 85%;
+      height: 82%;
+      left: 7.5%;
+      top: 5%;
+      background: #fffdfb;
+      transition: transform 1s ease;
+    }
+
+    .tapa {
+      position: absolute;
+      inset: 0;
+      background: #c9918a;
+      clip-path: polygon(0 0, 100% 0, 50% 58%);
+      transform-origin: top;
+      transition: transform .9s ease;
+      z-index: 3;
+    }
+
+    .frente {
+      position: absolute;
+      inset: 0;
+      background: #d1a19b;
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+      z-index: 4;
+    }
+
+    .corazon {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 54%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: white;
+      transition: opacity .5s;
+    }
+
+    .sobre.abierto .carta-dentro {
+      transform: translateY(-125px);
+    }
+
+    .sobre.abierto .tapa {
+      transform: rotateX(180deg);
+    }
+
+    .sobre.abierto .corazon {
+      opacity: 0;
+    }
+
+    /* CARTA */
+
+    .carta {
+      background: white;
+      text-align: center;
+    }
+
+    .contenido-carta {
+      max-width: 700px;
+      margin: auto;
+      text-align: left;
+      background: #fffdfb;
+      padding: 40px 30px;
+      border-radius: 5px;
+      box-shadow: 0 10px 35px rgba(70,40,40,.08);
+
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 1s ease;
+    }
+
+    .contenido-carta.mostrar {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contenido-carta h2 {
+      text-align: center;
+      font-size: 38px;
+      line-height: 1.1;
+    }
+
+    .contenido-carta p {
+      line-height: 1.9;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .firma {
+      text-align: right;
+      font-size: 25px !important;
+      font-family: Georgia, serif;
+      margin-top: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #f3ded9;
+      color: #765957;
+    }
+
+    @media (min-width: 700px) {
+      .galeria {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .foto:first-child {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- INICIO -->
+
+  <section class="inicio">
+
+    <small>Una pequeña sorpresa para ti</small>
+
+    <h1>Desde julio… ❤️</h1>
+
+    <p>
+      Hay momentos que parecen pequeños,
+      pero terminan significándolo todo.
+    </p>
+
+    <a href="#recuerdos" class="boton">
+      Ver nuestros recuerdos
+    </a>
+
+  </section>
+
+
+  <!-- FOTOS -->
+
+  <section class="recuerdos" id="recuerdos">
+
+    <small>NUestros recuerdos</small>
+
+    <h2>Momentos que quiero guardar ❤️</h2>
+
+    <div class="galeria">
+
+      <div class="foto">
+        <img src="fotos/foto1.jpg" alt="Nuestro recuerdo 1">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto2.jpg" alt="Nuestro recuerdo 2">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto3.jpg" alt="Nuestro recuerdo 3">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto4.jpg" alt="Nuestro recuerdo 4">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto5.jpg" alt="Nuestro recuerdo 5">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto6.jpg" alt="Nuestro recuerdo 6">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto7.jpg" alt="Nuestro recuerdo 7">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto8.jpg" alt="Nuestro recuerdo 8">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto9.jpg" alt="Nuestro recuerdo 9">
+      </div>
+
+      <div class="foto">
+        <img src="fotos/foto10.jpg" alt="Nuestro recuerdo 10">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SOBRE -->
+
+  <section class="sorpresa">
+
+    <h2>Tengo algo para ti… 💌</h2>
+
+    <p>Toca el sobre para descubrirlo</p>
+
+    <div class="sobre" id="sobre">
+
+      <div class="base"></div>
+
+      <div class="carta-dentro"></div>
+
+      <div class="tapa"></div>
+
+      <div class="frente"></div>
+
+      <div class="corazon">♥</div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CARTA -->
+
+  <section class="carta" id="carta">
+
+    <div class="contenido-carta" id="contenidoCarta">
+
+      <h2>
+        Feliz cumpleaños, mi amor ❤️🎂
+      </h2>
+
+      <p>
+        Hoy es un día muy especial porque celebramos tu vida,
+        y no quería dejar pasar la oportunidad de recordarte
+        lo importante que eres para mí.
+      </p>
+
+      <p>
+        Todo comenzó en julio, y aunque quizás en ese momento
+        no imaginábamos todo lo bonito que vendría después,
+        hoy puedo decir que ese mes marcó el comienzo de algo
+        muy especial para mí.
+      </p>
+
+      <p>
+        Desde entonces hemos compartido pequeños momentos que,
+        aunque puedan parecer simples, para mí significan muchísimo.
+        Cada conversación, cada risa, cada salida, cada abrazo y
+        cada instante a tu lado se han convertido en recuerdos
+        que quiero guardar siempre.
+      </p>
+
+      <p>
+        Lo más bonito es que contigo he podido ser feliz en esos
+        pequeños momentos. No necesitamos hacer algo extraordinario
+        para pasarla bien; simplemente estar juntos hace que cualquier
+        momento se vuelva especial.
+      </p>
+
+      <p>
+        Hoy quiero desearte un cumpleaños increíble. ❤️
+        Espero que este nuevo año de vida venga lleno de felicidad,
+        sueños cumplidos, momentos bonitos y muchas razones para sonreír.
+      </p>
+
+      <p>
+        Y quiero que sepas que me hace muy feliz poder compartir
+        una parte de tu vida y estar presente para celebrar este
+        día contigo.
+      </p>
+
+      <p>
+        Tenemos muchos planes, sueños y cosas que todavía nos
+        quedan por vivir. Quiero seguir creando recuerdos contigo,
+        cumplir cada uno de esos planes y, sobre todo, disfrutar
+        el camino juntos.
+      </p>
+
+      <p>
+        No sé exactamente qué nos espera en el futuro,
+        pero sí sé algo: quiero seguir descubriéndolo contigo.
+      </p>
+
+      <p>
+        Gracias por llegar a mi vida, por cada momento que hemos
+        compartido y por todas las sonrisas que me has regalado.
+      </p>
+
+      <p>
+        Espero que cuando veas esta pequeña sorpresa recuerdes que,
+        detrás de cada foto, cada recuerdo y cada palabra, hay alguien
+        que se siente muy feliz de tenerte a su lado.
+      </p>
+
+      <p>
+        <strong>Feliz cumpleaños, mi amor. ❤️</strong>
+      </p>
+
+      <p>
+        Que este sea solo uno de muchos cumpleaños que podamos
+        celebrar juntos y que todavía nos queden muchísimos
+        momentos por vivir.
+      </p>
+
+      <p class="firma">
+        Con amor,<br>
+        Jeremy ❤️
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- MÚSICA -->
+
+  <audio id="musica" loop>
+    <source src="musica/bendita-tu-luz.mp3" type="audio/mpeg">
+  </audio>
+
+
+  <footer>
+    Hecho con ❤️ por Jeremy
+  </footer>
+
+
+  <script>
+
+    const sobre = document.getElementById("sobre");
+    const carta = document.getElementById("contenidoCarta");
+    const musica = document.getElementById("musica");
+
+    sobre.addEventListener("click", function () {
+
+      if (sobre.classList.contains("abierto")) {
+        return;
+      }
+
+      sobre.classList.add("abierto");
+
+      /*
+        Intentamos comenzar la música justo después
+        de la interacción de la persona.
+      */
+
+      musica.play().catch(function () {
+        console.log("La reproducción automática fue bloqueada.");
+      });
+
+      setTimeout(function () {
+
+        carta.classList.add("mostrar");
+
+        carta.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }, 900);
+
+    });
+
+  </script>
+
+</body>
+</html>
