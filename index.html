@@ -505,21 +505,27 @@
       }, 900);
 
     });
-
+      function mostrarMusica() {
+        document.getElementById("reproductor").style.display = "block";
+}
   </script>
 
 <div class="musica">
-    <h3>🎵 Nuestra canción ❤️</h3>
+    <button onclick="mostrarMusica()" class="boton-musica">
+        🎵 Nuestra canción ❤️
+    </button>
 
-    <iframe
-        width="100%"
-        height="80"
-        src="https://www.youtube.com/embed/cwsuWmrvzsM"
-        title="Bendita Tu Luz - Maná"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
-    </iframe>
+    <div id="reproductor" style="display: none; margin-top: 15px;">
+        <iframe
+            width="100%"
+            height="80"
+            src="https://www.youtube.com/embed/cwsuWmrvzsM"
+            title="Bendita Tu Luz - Maná"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
 </div>
 
 </body>
